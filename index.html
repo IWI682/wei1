@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<head>
+    <title>Love魏思媛</title>
+</head>
+<body> <canvas id="canvas"></canvas>
+<style type="text/css">
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+</style>
+<script type="text/javascript">
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+ 
+ 
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+ 
+    var texts = '爱 LOVE U'.split('');
+ 
+    var fontSize = 16;
+    var columns = canvas.width / fontSize;
+    // 用于计算输出文字时坐标，所以长度即为列数
+    var drops = [];
+    //初始值
+    for (var x = 0; x < columns; x++) {
+        drops[x] = 1;
+    }
+ 
+    function draw() {
+        //让背景逐渐由透明到不透明
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        //文字颜色
+        ctx.fillStyle = '#f584b7';
+        ctx.font = fontSize + 'px arial';
+        //逐行输出文字
+        for (var i = 0; i < drops.length; i++) {
+            var text = texts[Math.floor(Math.random() * texts.length)];
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+ 
+            if (drops[i] * fontSize > canvas.height || Math.random() > 0.95) {
+                drops[i] = 0;
+            }
+ 
+            drops[i]++;
+        }
+    }
+    setInterval(draw, 33);
+</script>
+</body>
+</html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+    <TITLE> love</TITLE>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+    <META NAME="Generator" CONTENT="EditPlus">
+    <META NAME="Author" CONTENT="">
+    <META NAME="Keywords" CONTENT="">
+    <META NAME="Description" CONTENT="">
+    <meta charset="UTF-8">
+    <style>
+        html, body {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            background: rgb(0, 0, 0);
+        }
+        canvas {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        #child{
+            position: fixed;
+            top:50%;
+            left: 50%;
+            margin-top: -75px;
+            margin-left:-100px ;
+ 
+        }
+ 
+        h4{font-family:"黑体";font-size: 40px;color:#f584b7;position: relative;top: -70px;left: -80px;}
+    </style>
+</head>
+<body>
+<!--<div id="child" style=" text-align: center;"><h4>LOVE</h4></div><!--jxy❤！！！-->-->
+  <canvas id ="pinkboard"></canvas>
+  <!-- <canvas id= "canvas"></canvas>  -->
+<script>
+    /*
+   * Settings
+   */
+    var settings = {
+        particles: {
+            length:   500, // maximum amount of particles
+            duration:   2, // particle duration in sec
+            velocity: 100, // particle velocity in pixels/sec
+            effect: -0.75, // play with this for a nice effect
+            size:      30, // particle size in pixels
+        },
+    };
+ 
+    /*
+     * RequestAnimationFrame polyfill by Erik Möller
+     */
+    (function(){var b=0;var c=["ms","moz","webkit","o"];for(var a=0;a<c.length&&!window.requestAnimationFrame;++a){window.requestAnimationFrame=window[c[a]+"RequestAnimationFrame"];window.cancelAnimationFrame=window[c[a]+"CancelAnimationFrame"]||window[c[a]+"CancelRequestAnimationFrame"]}if(!window.requestAnimationFrame){window.requestAnimationFrame=function(h,e){var d=new Date().getTime();var f=Math.max(0,16-(d-b));var g=window.setTimeout(function(){h(d+f)},f);b=d+f;return g}}if(!window.cancelAnimationFrame){window.cancelAnimationFrame=function(d){clearTimeout(d)}}}());
+ 
+    /*
+     * Point class
+     */
+    var Point = (function() {
+        function Point(x, y) {
+            this.x = (typeof x !== 'undefined') ? x : 0;
+            this.y = (typeof y !== 'undefined') ? y : 0;
+        }
+        Point.prototype.clone = function() {
+            return new Point(this.x, this.y);
+        };
+        Point.prototype.length = function(length) {
+            if (typeof length == 'undefined')
+                return Math.sqrt(this.x * this.x + this.y * this.y);
+            this.normalize();
+            this.x *= length;
+            this.y *= length;
+            return this;
+        };
+        Point.prototype.normalize = function() {
+            var length = this.length();
+            this.x /= length;
+            this.y /= length;
+            return this;
+        };
+        return Point;
+    })();
+ 
+    /*
+     * Particle class
+     */
+    var Particle = (function() {
+        function Particle() {
+            this.position = new Point();
+            this.velocity = new Point();
+            this.acceleration = new Point();
+            this.age = 0;
+        }
+        Particle.prototype.initialize = function(x, y, dx, dy) {
+            this.position.x = x;
+            this.position.y = y;
+            this.velocity.x = dx;
+            this.velocity.y = dy;
+            this.acceleration.x = dx * settings.particles.effect;
+            this.acceleration.y = dy * settings.particles.effect;
+            this.age = 0;
+        };
+        Partic
